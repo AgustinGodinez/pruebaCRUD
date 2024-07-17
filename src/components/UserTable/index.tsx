@@ -29,9 +29,9 @@ export const UserTable = () => {
     );
   }, [users, searchTerm]);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number, name:string) => {
     Swal.fire({
-      title: "¿Seguro que quieres borrar el usuario?",
+      title: `¿Estas seguro que quieres eliminar a ${name}?`,
       showDenyButton: true,
       confirmButtonText: "Si",
       confirmButtonColor:'#FF3B3B',
@@ -134,7 +134,7 @@ export const UserTable = () => {
                     </span>
                     <button>Ver</button>
                     <button>Edit</button>
-                    <button className="text-red-500" onClick={() => handleDelete(user.id)}>
+                    <button className="text-red-500" onClick={() => handleDelete(user.id, user.name)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
