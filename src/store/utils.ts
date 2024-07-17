@@ -24,3 +24,19 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
     }
   }
 });
+
+export const deleteUser = createAsyncThunk(
+  "users/deleteUser",
+  async (id: number) => {
+    try {
+      await axiosInstance.delete(`/${id}`);
+      return id;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return isRejectedWithValue(error.response.data);
+      } else {
+        return isRejectedWithValue("An unknown error occurred");
+      }
+    }
+  }
+);

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { fetchUsers } from "../../store/utils";
+import { deleteUser, fetchUsers } from "../../store/utils";
 import { Loading } from "../../components";
+import Swal from "sweetalert2";
 
 export const UserTable = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,22 @@ export const UserTable = () => {
     );
   }, [users, searchTerm]);
 
+  const handleDelete = (id: number) => {
+    Swal.fire({
+      title: "¿Seguro que quieres borrar el usuario?",
+      showDenyButton: true,
+      confirmButtonText: "Si",
+      confirmButtonColor:'#FF3B3B',
+      denyButtonText: `No`,
+      denyButtonColor:'#22B371'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteUser(id));
+        Swal.fire({title:'Usuario Eliminado', icon:"success", iconColor:"red"});
+      }
+    });
+  };
+
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -48,80 +65,98 @@ export const UserTable = () => {
           className=" p-2 border-2 border-teal-300 rounded w-full focus:outline-none focus:ring-1 focus:ring-teal-700"
         />
       </header>
-      {loading ? <Loading/>:<>
-      <table className="w-full border-collapse block md:table">
-        <thead className="block md:table-header-group text-white">
-          <tr className="bg-teal-400 md:border-none block md:table-row max-md:hidden">
-            <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
-              ID
-            </th>
-            <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
-              Name
-            </th>
-            <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
-              Email
-            </th>
-            <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
-              Gender
-            </th>
-            <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
-              Status
-            </th>
-            <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody className="block md:table-row-group">
-          {filteredUsers.map((user) => (
-              
-              <tr
-                key={user.id}
-                className="md:hover:bg-gray-300 md:border-none block md:table-row mb-8"
-                >
-                <td className="bg-teal-400 text-white font-bold p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2">
-                  <span className="inline-block w-1/3 md:hidden font-bold">
-                    ID:
-                  </span>
-                  {user.id}
-                </td>
-                <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
-                  <span className="inline-block w-1/3 md:hidden font-bold">
-                    Name:
-                  </span>
-                  {user.name}
-                </td>
-                <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
-                  <span className="inline-block w-1/3 md:hidden font-bold">
-                    Email:
-                  </span>
-                  {user.email}
-                </td>
-                <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
-                  <span className="inline-block w-1/3 md:hidden font-bold">
-                    GENDER:
-                  </span>
-                  {user.gender}
-                </td>
-                <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
-                  <span className="inline-block w-1/3 md:hidden font-bold">
-                    STATUS:
-                  </span>
-                  {user.status}
-                </td>
-                <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
-                  <span className="inline-block w-1/3 md:hidden font-bold">
-                    Actions:
-                  </span>
-                  <button>Ver</button>
-                  <button>Edit</button>
-                  <button>Delete</button>
-                </td>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <table className="w-full border-collapse block md:table">
+            <thead className="block md:table-header-group text-white">
+              <tr className="bg-teal-400 md:border-none block md:table-row max-md:hidden">
+                <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
+                  ID
+                </th>
+                <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
+                  Name
+                </th>
+                <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
+                  Email
+                </th>
+                <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
+                  Gender
+                </th>
+                <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
+                  Status
+                </th>
+                <th className="p-3 border-x-2 font-bold md:border md:border-teal-100 text-center">
+                  Actions
+                </th>
               </tr>
-          ))}
-        </tbody>
-      </table>
-      </>}
+            </thead>
+            <tbody className="block md:table-row-group">
+              {filteredUsers.map((user) => (
+                <tr
+                  key={user.id}
+                  className="md:hover:bg-gray-300 md:border-none block md:table-row mb-8"
+                >
+                  <td className="bg-teal-400 text-white font-bold p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2">
+                    <span className="inline-block w-1/3 md:hidden font-bold">
+                      ID:
+                    </span>
+                    {user.id}
+                  </td>
+                  <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
+                    <span className="inline-block w-1/3 md:hidden font-bold">
+                      Name:
+                    </span>
+                    {user.name}
+                  </td>
+                  <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
+                    <span className="inline-block w-1/3 md:hidden font-bold">
+                      Email:
+                    </span>
+                    {user.email}
+                  </td>
+                  <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
+                    <span className="inline-block w-1/3 md:hidden font-bold">
+                      GENDER:
+                    </span>
+                    {user.gender}
+                  </td>
+                  <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
+                    <span className="inline-block w-1/3 md:hidden font-bold">
+                      STATUS:
+                    </span>
+                    {user.status}
+                  </td>
+                  <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell border-teal-300 border-2 hover:bg-gray-300">
+                    <span className="inline-block w-1/3 md:hidden font-bold">
+                      Actions:
+                    </span>
+                    <button>Ver</button>
+                    <button>Edit</button>
+                    <button className="text-red-500" onClick={() => handleDelete(user.id)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </section>
   );
 };
