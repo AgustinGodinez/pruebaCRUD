@@ -1,17 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteUser, fetchUsers } from "./utils";
+import { createUser, deleteUser, fetchUsers } from "./utils";
 import { UserStateProps } from "./types";
 
 const initialState: UserStateProps = {
   users: [],
   loading: false,
   error: null,
+  isModalShow: false,
 };
 
 const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    showModal(state, action) {
+      state.isModalShow = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
@@ -27,13 +32,21 @@ const userSlice = createSlice({
         state.error = action.error.message || "Failed to fetch users";
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        state.users = state.users.filter(user => user.id !== action.payload);
+        state.users = state.users.filter((user) => user.id !== action.payload);
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to delete user";
+      })
+      .addCase(createUser.fulfilled, (state, action) => {
+        state.users.push(action.payload);
+      })
+      .addCase(createUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to create user";
       });
   },
 });
+export const { showModal } = userSlice.actions;
 
 export default userSlice.reducer;

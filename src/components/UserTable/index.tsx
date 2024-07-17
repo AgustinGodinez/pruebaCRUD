@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { deleteUser, fetchUsers } from "../../store/utils";
-import { Loading } from "../../components";
+import { CreateUser, ErrorComp, Loading } from "../../components";
 import Swal from "sweetalert2";
 
 export const UserTable = () => {
@@ -29,34 +29,33 @@ export const UserTable = () => {
     );
   }, [users, searchTerm]);
 
-  const handleDelete = (id: number, name:string) => {
+  const handleDelete = (id: number, name: string) => {
     Swal.fire({
       title: `¿Estas seguro que quieres eliminar a ${name}?`,
       showDenyButton: true,
       confirmButtonText: "Si",
-      confirmButtonColor:'#FF3B3B',
+      confirmButtonColor: "#FF3B3B",
       denyButtonText: `No`,
-      denyButtonColor:'#22B371'
+      denyButtonColor: "#22B371",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteUser(id));
-        Swal.fire({title:'Usuario Eliminado', icon:"success", iconColor:"red"});
+        Swal.fire({
+          title: "Usuario Eliminado",
+          icon: "success",
+          iconColor: "red",
+        });
       }
     });
   };
 
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <ErrorComp message={error}/>;
 
   return (
     <section className="w-11/12 mx-auto my-10">
       <h2 className="font-bold text-4xl mb-6">Lista de Usuarios</h2>
       <header className="flex mb-10">
-        <button
-          className="mr-3 rounded-lg sm:w-1/4 bg-teal-500 h-16 px-6 text-lg font-bold  transition-all text-white"
-          data-ripple-light="true"
-        >
-          Nuevo Usuario
-        </button>
+        <CreateUser />
         <input
           type="text"
           placeholder="Search by ID, name, email, gender, or status"
@@ -134,7 +133,10 @@ export const UserTable = () => {
                     </span>
                     <button>Ver</button>
                     <button>Edit</button>
-                    <button className="text-red-500" onClick={() => handleDelete(user.id, user.name)}>
+                    <button
+                      className="text-red-500"
+                      onClick={() => handleDelete(user.id, user.name)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

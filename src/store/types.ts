@@ -10,4 +10,5 @@ export interface UserStateProps {
   users: User[];
   loading: boolean;
   error: string | null;
+  isModalShow:boolean
 }

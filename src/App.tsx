@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/Home";
-import { Footer, Navbar } from "./components";
+import { CreateUser, Footer, Navbar } from "./components";
 import ErrorPage from "./pages/Error";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/Home" element={<HomePage />} />
+        <Route path="/createUser" element={<CreateUser/>} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />

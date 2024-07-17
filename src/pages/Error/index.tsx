@@ -17,7 +17,7 @@ export default function ErrorPage() {
               Sorry, the page you are looking for could not be found.
             </p>
           </header>
-          <NavLink to="/Home">
+          <NavLink to="/">
             <button
               className="errorButton"
             >

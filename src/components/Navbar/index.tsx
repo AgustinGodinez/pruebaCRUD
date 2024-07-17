@@ -4,7 +4,7 @@ export const Navbar = () => {
   return (
     <nav className="font-sans py-4 px-6 bg-teal-700 text-white  w-full ">
       <NavLink
-        to="/Home"
+        to="/"
         className="text-2xl no-underline text-grey-darkest hover:text-teal-500 flex items-center"
       >
         <img
