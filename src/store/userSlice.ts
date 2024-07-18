@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createUser, deleteUser, fetchUsers } from "./utils";
+import { createUser, deleteUser, fetchUser, fetchUsers } from "./utils";
 import { UserStateProps } from "./types";
 
 const initialState: UserStateProps = {
   users: [],
+  user: { email: "", id: 1, name: "", gender: "", status: "" },
   loading: false,
   error: null,
   isModalShow: false,
@@ -30,6 +31,18 @@ const userSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to fetch users";
+      })
+      .addCase(fetchUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(fetchUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to fetch user";
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.users = state.users.filter((user) => user.id !== action.payload);

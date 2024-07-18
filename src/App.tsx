@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/Home";
+import HomePage from "./pages/HomePage";
 import { CreateUser, Footer, Navbar } from "./components";
-import ErrorPage from "./pages/Error";
+import ErrorPage from "./pages/ErrorPage";
+import UsuarioPage from "./pages/Usuario";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/createUser" element={<CreateUser/>} />
+        <Route path="/usuario/:id" element={<UsuarioPage/>} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />

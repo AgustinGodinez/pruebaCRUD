@@ -1,4 +1,4 @@
-export interface User {
+export interface UserProps {
   id: number;
   name: string;
   email: string;
@@ -7,7 +7,8 @@ export interface User {
 }
 
 export interface UserStateProps {
-  users: User[];
+  users: UserProps[];
+  user: UserProps;
   loading: boolean;
   error: string | null;
   isModalShow:boolean

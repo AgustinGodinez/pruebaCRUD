@@ -1,4 +1,4 @@
-export const Loading = () => {
+export const LoadingTable = () => {
   return (
     <section className="border border-blue-300 shadow rounded-md p-4 w-full mx-auto">
       <article className="animate-pulse">

@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
   baseURL: apiUrl,
   headers: {
     Authorization: `Bearer ${apiKey}`,
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
@@ -27,34 +27,54 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   }
 });
 
+export const fetchUser = createAsyncThunk(
+  "users/fetchUser",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/${id}`);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error("Error response data:", error.response.data);
+        return rejectWithValue(error.response.data);
+      } else {
+        console.error("Unknown error:", error);
+        return rejectWithValue("An unknown error occurred");
+      }
+    }
+  }
+);
+
 export const deleteUser = createAsyncThunk(
   "users/deleteUser",
-  async (id: number) => {
+  async (id: number, { rejectWithValue }) => {
     try {
       await axiosInstance.delete(`/${id}`);
       return id;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        return isRejectedWithValue(error.response.data);
+        console.error("Error response data:", error.response.data);
+        return rejectWithValue(error.response.data);
       } else {
-        return isRejectedWithValue("An unknown error occurred");
+        console.error("Unknown error:", error);
+        return rejectWithValue("An unknown error occurred");
       }
     }
   }
 );
 export const createUser = createAsyncThunk(
-  'users/createUser',
-  async (user: Omit<User, 'id'>, { rejectWithValue }) => {
+  "users/createUser",
+  async (user: Omit<User, "id">, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post('', user);
+      const response = await axiosInstance.post("", user);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        console.error('Error response data:', error.response.data);
+        console.error("Error response data:", error.response.data);
         return rejectWithValue(error.response.data);
       } else {
-        console.error('Unknown error:', error);
-        return rejectWithValue('An unknown error occurred');
+        console.error("Unknown error:", error);
+        return rejectWithValue("An unknown error occurred");
       }
     }
   }
