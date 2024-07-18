@@ -1,11 +1,11 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import { Button, Card, Label, Select, TextInput } from "flowbite-react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { fetchUser, updateUser } from "../../store/utils";
 import { ErrorComp, LoadingUser } from "../../components";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { UserProps } from "../../store/types";
+import { UserProps } from "../../types";
 import Swal from "sweetalert2";
 
 export default function EditarPage() {
@@ -52,7 +52,7 @@ export default function EditarPage() {
           icon: "success",
           iconColor: "green",
         });
-        navigate("/")
+        navigate("/");
       }
     });
   };
@@ -88,7 +88,6 @@ export default function EditarPage() {
                   {errors.name.message}
                 </span>
               )}
-
               <Label
                 value="Email"
                 className="block text-sm font-bold text-gray-700"
@@ -110,7 +109,6 @@ export default function EditarPage() {
                   {errors.email.message}
                 </span>
               )}
-
               <Label
                 value="Género"
                 className="block text-sm font-bold text-gray-700"
@@ -129,7 +127,6 @@ export default function EditarPage() {
                   {errors.gender.message}
                 </span>
               )}
-
               <Label
                 value="Status"
                 className="block text-sm font-bold text-gray-700"
@@ -148,7 +145,6 @@ export default function EditarPage() {
                   {errors.status.message}
                 </span>
               )}
-
               <footer className="flex space-x-4">
                 <Button type="submit" className="mt-4 bg-teal-500 text-white">
                   Guardar

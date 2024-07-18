@@ -1,27 +1,27 @@
-.errorSection{
-    @apply flex items-center justify-center min-h-screen from-gray-800 via-green-300 to-teal-500 bg-gradient-to-br
+.errorSection {
+  @apply flex items-center justify-center min-h-screen from-gray-800 via-green-300 to-teal-500 bg-gradient-to-br;
 }
 
 .errorArticle {
-    @apply w-full max-w-lg px-10 py-8 mx-auto bg-white rounded-lg shadow-xl
+  @apply w-full max-w-lg px-10 py-8 mx-auto bg-white rounded-lg shadow-xl;
 }
 
 .errorFigure {
-    @apply max-w-md mx-auto space-y-6
+  @apply max-w-md mx-auto space-y-6;
 }
-.errorHeader{
-    @apply py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6
+.errorHeader {
+  @apply py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6;
 }
 
-.errorH2{
-    @apply mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl
+.errorH2 {
+  @apply mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl;
 }
 .errortitle {
-    @apply mb-4 text-3xl tracking-tight font-bold text-black md:text-4xl
+  @apply mb-4 text-3xl tracking-tight font-bold text-black md:text-4xl;
 }
 .errorMessage {
-    @apply mb-4 text-lg font-light text-gray-500
+  @apply mb-4 text-lg font-light text-gray-500;
 }
 .errorButton {
-    @apply mr-3 rounded-lg w-full bg-teal-500 h-16 px-6 text-lg font-bold  transition-all text-white
+  @apply mr-3 rounded-lg w-full bg-teal-500 h-16 px-6 text-lg font-bold  transition-all text-white;
 }

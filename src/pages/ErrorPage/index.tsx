@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import './styles.css'
+import "./styles.css";
 
 export default function ErrorPage() {
   return (
@@ -7,22 +7,14 @@ export default function ErrorPage() {
       <article className="errorArticle">
         <figure className="errorFigure">
           <header className="errorHeader">
-            <h2 className="errorH2">
-              404
-            </h2>
-            <p className="errortitle">
-              Page Not Found
-            </p>
+            <h2 className="errorH2">404</h2>
+            <p className="errortitle">Page Not Found</p>
             <p className="errorMessage">
               Sorry, the page you are looking for could not be found.
             </p>
           </header>
           <NavLink to="/">
-            <button
-              className="errorButton"
-            >
-              Home
-            </button>
+            <button className="errorButton">Home</button>
           </NavLink>
         </figure>
       </article>

@@ -1,9 +1,13 @@
+import { Button } from "flowbite-react";
 import { MessageProps } from "./types";
 
-export const ErrorComp = ({message}:MessageProps) => {
+export const ErrorComp = ({ message }: MessageProps) => {
+  const NavTo = () => {
+    location.reload();
+  };
   return (
     <section className="flex items-center h-full sm:p-16">
-      <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8 space-y-8 text-center sm:max-w-md">
+      <article className="container flex flex-col items-center justify-center px-5 mx-auto my-8 space-y-8 text-center sm:max-w-md">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -32,10 +36,11 @@ export const ErrorComp = ({message}:MessageProps) => {
         <p className="text-3xl">
           Opps!... Algo ocurrio vuelva a recargar la pagina
         </p>
-        <p className="text-3xl">
-            Error: {message}
-        </p>
-      </div>
+        <p className="text-3xl">Error: {message}</p>
+        <Button color="teal" className="mt-4" onClick={NavTo}>
+          Regresar
+        </Button>
+      </article>
     </section>
   );
 };

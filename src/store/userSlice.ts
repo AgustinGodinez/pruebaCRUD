@@ -6,7 +6,7 @@ import {
   fetchUsers,
   updateUser,
 } from "./utils";
-import { UserStateProps } from "./types";
+import { UserStateProps } from "../types";
 
 const initialState: UserStateProps = {
   users: [],
@@ -80,6 +80,6 @@ const userSlice = createSlice({
       });
   },
 });
-export const { showModal } = userSlice.actions;
 
+export const { showModal } = userSlice.actions;
 export default userSlice.reducer;

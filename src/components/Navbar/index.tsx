@@ -8,8 +8,8 @@ export const Navbar = () => {
         className="text-2xl no-underline text-grey-darkest hover:text-teal-500 flex items-center"
       >
         <img
-          src="/fotoC.jpg"
-          className="h-auto w-14 rounded-full mr-3"
+          src="/foto.webp"
+          className="h-16 w-14 rounded-full mr-3 object-cover"
           alt="Foto Mia"
         />
         <h1>Agustin Godinez Montaño</h1>

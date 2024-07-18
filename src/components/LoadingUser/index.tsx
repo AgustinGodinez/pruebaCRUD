@@ -1,4 +1,3 @@
-
 export const LoadingUser = () => {
   return (
     <section className="w-3/4 m-10 mx-auto">

@@ -1,6 +1,6 @@
 import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import axios from "axios";
-import { UserProps } from "./types";
+import { UserProps } from "../types";
 
 const apiUrl = "https://gorest.co.in/public/v2/users";
 const apiKey =
@@ -9,7 +9,7 @@ const apiKey =
 const axiosInstance = axios.create({
   baseURL: apiUrl,
   headers: {
-    Authorization: `Bearer ${apiKey}`
+    Authorization: `Bearer ${apiKey}`,
   },
 });
 
@@ -66,7 +66,7 @@ export const updateUser = createAsyncThunk(
   "users/updateUser",
   async (user: UserProps, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.put(`/${user.id}`, user);
+      const response = await axiosInstance.patch(`/${user.id}`, user);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
