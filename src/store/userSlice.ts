@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createUser, deleteUser, fetchUser, fetchUsers } from "./utils";
+import {
+  createUser,
+  deleteUser,
+  fetchUser,
+  fetchUsers,
+  updateUser,
+} from "./utils";
 import { UserStateProps } from "./types";
 
 const initialState: UserStateProps = {
@@ -50,6 +56,20 @@ const userSlice = createSlice({
       .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to delete user";
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users = state.users.map((element) =>
+          element.id === action.payload.id ? action.payload : element
+        );
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to update user";
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.users.push(action.payload);

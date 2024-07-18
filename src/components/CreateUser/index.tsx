@@ -1,33 +1,24 @@
 import { useAppDispatch } from "../../store";
 import { ModalComponent } from "../ModalComponent";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FormDataProps } from "./types";
 import { Button, Label, TextInput, Select } from "flowbite-react";
-import { useState } from "react";
 import { createUser } from "../../store/utils";
 import { showModal } from "../../store/userSlice";
+import { UserProps } from "../../store/types";
 
 export const CreateUser = () => {
   const dispatch = useAppDispatch();
-
-  const [data] = useState ({
-    name: "",
-    email: "",
-    gender: "male",
-    status: "active",
-    id: null,
-  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormDataProps>();
+  } = useForm<UserProps>();
 
-  const onSubmit: SubmitHandler<FormDataProps> = (info) => {
-    const {name, gender, email} = info;
-    const newUser = { ...data, name, gender, email }; 
+  const onSubmit: SubmitHandler<UserProps> = (info) => {
+    const {name, gender, email, status= "active", id= null,} = info;
+    const newUser = { name, gender, email, status,id }; 
     
     dispatch(createUser(newUser));    
     reset({ name: "", email: "", gender: "male" });

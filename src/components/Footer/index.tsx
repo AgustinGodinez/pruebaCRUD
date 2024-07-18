@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-teal-500 via-teal-700  to-teal-500">
+    <footer className="bg-gradient-to-r from-teal-500 via-teal-700  to-teal-500  ">
       <section className="container px-6 py-8 mx-auto text-center">
         <img
           className="w-auto h-16 rounded-full mx-auto"

@@ -1,6 +1,6 @@
 import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import axios from "axios";
-import { User } from "./types";
+import { UserProps } from "./types";
 
 const apiUrl = "https://gorest.co.in/public/v2/users";
 const apiKey =
@@ -9,8 +9,7 @@ const apiKey =
 const axiosInstance = axios.create({
   baseURL: apiUrl,
   headers: {
-    Authorization: `Bearer ${apiKey}`,
-    "Content-Type": "application/json",
+    Authorization: `Bearer ${apiKey}`
   },
 });
 
@@ -62,9 +61,27 @@ export const deleteUser = createAsyncThunk(
     }
   }
 );
+
+export const updateUser = createAsyncThunk(
+  "users/updateUser",
+  async (user: UserProps, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/${user.id}`, user);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error("Error response data:", error.response.data);
+        return rejectWithValue(error.response.data);
+      } else {
+        console.error("Unknown error:", error);
+        return rejectWithValue("An unknown error occurred");
+      }
+    }
+  }
+);
 export const createUser = createAsyncThunk(
   "users/createUser",
-  async (user: Omit<User, "id">, { rejectWithValue }) => {
+  async (user: Omit<UserProps, "id">, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post("", user);
       return response.data;
